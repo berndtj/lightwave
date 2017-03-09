@@ -2,7 +2,13 @@
     "variables": {
         "source_ova": "{{env `SOURCE_OVA`}}",
         "build_path": "build",
-        "sandbox_build": "{{env `SANDBOX_BUILD`}}"
+        "sandbox_build": "{{env `SANDBOX_BUILD`}}",
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_source_ami": "ami-4fd9562f",
+        "aws_region": "us-west-2",
+        "aws_vpc_id": "",
+        "aws_subnet_id": ""
     },
     "builders": [
         {
@@ -20,6 +26,19 @@
                 [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
                 [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
             ]
+        },
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{ user `aws_access_key` }}",
+            "secret_key": "{{ user `aws_secret_key` }}",
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `aws_source_ami` }}",
+            "instance_type": "t2.small",
+            "ssh_username": "root",
+            "ami_name": "lightwave-{{timestamp}}",
+            "subnet_id": "{{ user `aws_subnet_id` }}",
+            "vpc_id": "{{ user `aws_vpc_id` }}",
+            "associate_public_ip_address": true
         }
     ],
     "provisioners": [

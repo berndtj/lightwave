@@ -44,7 +44,7 @@ fi
 
 export SOURCE_OVA=${STAGE_PATH}/photon-ova-build/`basename ${STAGE_PATH}/photon-ova-build/photon*.ova`
 
-packer build -force -var "build_path=$STAGE_PATH/lw-ova-build" $WORKING_PATH/lightwave-packer.json
+packer build -force -only=virtualbox-ovf -var "build_path=$STAGE_PATH/lw-ova-build" $WORKING_PATH/lightwave-packer.json
 
 # make ova vmware compatible
 ${WORKING_PATH}/convert_ova.sh ${STAGE_PATH}/lw-ova-build/lightwave-vb \
