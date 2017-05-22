@@ -26,7 +26,7 @@ fi
 
 sed -i 's/#Storage=auto/Storage=persistent/' /etc/systemd/journald.conf
 
-tdnf install -y commons-daemon-1.0.15 \
+tdnf install -y commons-daemon-1.0.15-8.ph1 \
      openjre-1.8.0.112 \
      apache-tomcat-8.5.8
 tdnf install -y likewise-open-6.2.11
